@@ -34,9 +34,13 @@ Meteor.methods ({
 
 		const task = Tasks.findOne(taskId);
 
+		console.log("trying to delete data " + this.userId);
+
 		if (task.private && task.owner !== this.userId) {
 			throw new Meteor.Error("not-authorized");
 		}
+
+		Tasks.remove(taskId);
 	},
 	'tasks.setChecked' (taskId, setChecked) {
 		check(taskId, String);
